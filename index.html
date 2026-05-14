@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HNB Life Planner | Securing Your Future</title>
+    <!-- Tailwind CSS 4 CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style type="text/tailwindcss">
+        @theme {
+            --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+            --color-hnb-blue: #00ADEF;
+            --color-hnb-navy: #133E8D;
+            --color-hnb-gold: #fdb913;
+        }
+        @layer base {
+            body {
+                @apply bg-slate-50 text-slate-800 font-sans;
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        [data-lucide] {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12 overflow-x-hidden">
+    <!-- Brand Header -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50 px-6 py-4 shadow-sm">
+        <div class="max-w-md mx-auto flex items-center justify-between">
+            <div id="logo-container" class="h-10">
+                <svg viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-full w-auto" preserveAspectRatio="xMinYMid meet">
+                    <text x="0" y="70" fill="#00ADEF" style="font-size: 56px; font-weight: 900; font-family: system-ui, -apple-system, Arial, sans-serif; letter-spacing: -0.02em;">HNB</text>
+                    <text x="120" y="70" fill="#133E8D" style="font-size: 56px; font-weight: 700; font-family: system-ui, -apple-system, Arial, sans-serif; letter-spacing: -0.02em;">Life</text>
+                    <g transform="translate(230, 20) scale(0.8)">
+                        <path d="M15 55C15 55 35 30 35 15C35 5 10 0 10 0C10 0 15 15 22 30C28 45 15 55 15 55Z" fill="#133E8D" />
+                        <path d="M18 55C18 55 55 48 70 30C85 12 75 0 75 0C75 0 70 15 55 35C40 50 18 55 18 55Z" fill="#FAB818" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto px-6 pt-4 space-y-6">
+        <!-- Lead Capture Form -->
+        <section id="form-section">
+            <header class="px-1 text-center mb-4">
+                <h2 class="text-2xl font-black text-slate-900 mb-0.5 leading-tight uppercase italic underline decoration-hnb-gold decoration-4 underline-offset-4">
+                    <span class="text-hnb-navy">Plan</span> <span class="text-hnb-blue">Directly</span>
+                </h2>
+                <p class="text-slate-400 text-[9px] font-black uppercase tracking-[0.2em] mt-2">Start your journey to specialized cover</p>
+            </header>
+
+            <form id="lead-form" class="space-y-4 bg-white p-5 pb-6 rounded-[28px] shadow-sm border border-slate-100">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] mb-2 px-1 text-left">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your name" class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue">
+                    <p id="fullName-error" class="hidden mt-2 text-[9px] text-red-500 font-black uppercase tracking-wider flex items-center gap-1 px-1">
+                        <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> <span class="error-msg"></span>
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] mb-2 px-1 text-left">Email Address (Optional)</label>
+                    <input type="email" id="email" name="email" placeholder="example@email.com" class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue">
+                    <p id="email-error" class="hidden mt-2 text-[9px] text-red-500 font-black uppercase tracking-wider flex items-center gap-1 px-1">
+                        <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> <span class="error-msg"></span>
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] mb-2 px-1 text-left">NIC Number</label>
+                    <input type="text" id="nic" name="nic" placeholder="e.g. 199012345678" class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue">
+                    <p id="nic-error" class="hidden mt-2 text-[9px] text-red-500 font-black uppercase tracking-wider flex items-center gap-1 px-1">
+                        <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> <span class="error-msg"></span>
+                    </p>
+                    <p id="nic-success" class="hidden text-[9px] text-emerald-600 mt-2 block font-black uppercase tracking-wider px-1">✓ Valid Format Detected</p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] mb-2 px-1 text-left">Date of Birth</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="relative">
+                            <select id="dob-year" name="year" class="w-full pl-3 pr-8 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue appearance-none">
+                                <option value="">Year</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none w-3.5 h-3.5"></i>
+                        </div>
+                        
+                        <div class="relative">
+                            <select id="dob-month" name="month" class="w-full pl-3 pr-8 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue appearance-none">
+                                <option value="">Month</option>
+                                <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
+                                <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
+                                <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
+                                <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none w-3.5 h-3.5"></i>
+                        </div>
+
+                        <div class="relative">
+                            <select id="dob-day" name="day" class="w-full pl-3 pr-8 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue appearance-none">
+                                <option value="">Day</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none w-3.5 h-3.5"></i>
+                        </div>
+                    </div>
+                    <p id="dob-error" class="hidden mt-2 text-[9px] text-red-500 font-black uppercase tracking-wider flex items-center gap-1 px-1">
+                        <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> <span class="error-msg"></span>
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] mb-2 px-1 text-left">Your Mobile Number</label>
+                    <div class="flex">
+                        <span class="flex items-center px-4 bg-slate-100 border border-r-0 border-slate-100 rounded-l-xl text-slate-400 font-black text-xs">+94</span>
+                        <input type="tel" id="mobile" name="mobile" placeholder="771234567" class="flex-1 px-4 py-3 bg-slate-50 border border-slate-100 rounded-r-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue">
+                    </div>
+                    <p id="mobile-error" class="hidden mt-2 text-[9px] text-red-500 font-black uppercase tracking-wider flex items-center gap-1 px-1">
+                        <i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> <span class="error-msg"></span>
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] mb-2 px-1 text-left">Address (Optional)</label>
+                    <textarea id="address" name="address" placeholder="Current residential address" rows="1" class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue resize-none min-h-[52px]"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] mb-2 px-1 text-left">Inquiry / Goal</label>
+                    <textarea id="requirement" name="requirement" placeholder="e.g. Investment Plan, Child Policy..." rows="4" class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none transition-all text-sm font-medium focus:ring-2 focus:ring-hnb-blue/20 focus:border-hnb-blue resize-none"></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="submit-btn" class="w-full relative group overflow-hidden bg-hnb-navy text-white py-4.5 rounded-[22px] font-black text-sm tracking-widest uppercase shadow-2xl shadow-hnb-navy/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="relative flex items-center gap-3">
+                            <div id="btn-icon" class="w-6 h-6 rounded-lg bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                                <i data-lucide="message-circle" class="w-3.5 h-3.5 text-white" stroke-width="3"></i>
+                            </div>
+                            <span id="btn-text">SEND VIA WHATSAPP</span>
+                        </div>
+                    </button>
+                    
+                    <div class="flex items-center justify-center gap-2 mt-5 text-slate-300">
+                        <i data-lucide="lock" class="w-3 h-3"></i>
+                        <span class="text-[9px] font-black tracking-[0.15em] uppercase">Secured by HNB Life</span>
+                    </div>
+                </div>
+
+                <div id="success-alert" class="hidden bg-emerald-50 border border-emerald-100 rounded-2xl p-4 flex items-center gap-3 text-emerald-700 animate-fade-in">
+                    <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                    <div>
+                        <p class="font-bold text-xs uppercase tracking-wider">Message Ready</p>
+                        <p class="text-[10px] font-medium opacity-80 uppercase tracking-tight">WhatsApp has been triggered with the lead data.</p>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Life Planner Information -->
+        <section>
+            <div class="bg-white/60 p-5 rounded-[28px] border border-slate-100 shadow-sm uppercase italic backdrop-blur-sm">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3 not-italic">
+                        <div class="w-14 h-14 bg-white border border-slate-100 rounded-xl flex items-center justify-center overflow-hidden p-1.5 shadow-sm">
+                            <div class="h-8 w-auto">
+                                <svg viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-full w-auto">
+                                    <text x="0" y="70" fill="#00ADEF" style="font-size: 56px; font-weight: 900; font-family: system-ui; letter-spacing: -0.02em;">HNB</text>
+                                    <text x="120" y="70" fill="#133E8D" style="font-size: 56px; font-weight: 700; font-family: system-ui; letter-spacing: -0.02em;">Life</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-slate-400 text-[8px] font-black uppercase tracking-[0.2em] mb-0.5">Your Life Planner</p>
+                            <h2 class="text-sm font-black text-slate-800 leading-none">
+                                <span class="text-hnb-blue">Rushan</span> <span class="text-hnb-navy">Vidwantha</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="bg-hnb-gold text-white text-[7px] font-black px-2 py-1 rounded shadow-sm shadow-hnb-gold/20 tracking-widest leading-none">QUALIFIED PLANNER</div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-slate-100/50 flex items-center justify-between not-italic">
+                    <span class="text-[8px] font-black text-slate-300 uppercase tracking-widest">HNB Life PLC • PLC</span>
+                    <div class="flex items-center gap-1">
+                        <div class="w-1 h-1 rounded-full bg-hnb-gold"></div>
+                        <span class="text-[7px] font-black text-hnb-navy uppercase tracking-tighter italic">Professional Service</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Connect Footer Bar -->
+        <div class="bg-white border border-slate-100 rounded-[24px] p-3 shadow-sm flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 pl-1">
+                <div class="w-8 h-8 rounded-full bg-hnb-blue/5 flex items-center justify-center border border-hnb-blue/10">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-hnb-blue"></i>
+                </div>
+                <div>
+                    <p class="text-[8px] font-black uppercase text-slate-400 tracking-wider">Ready to connect</p>
+                    <p class="text-sm font-black text-slate-900 leading-none tracking-tight">077 008 4828</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="tel:0770084828" class="w-10 h-10 rounded-full bg-hnb-gold text-white flex items-center justify-center shadow-lg shadow-hnb-gold/20 active:scale-95 transition-transform">
+                    <i data-lucide="phone" class="w-4 h-4" stroke-width="3"></i>
+                </a>
+                <a href="https://wa.me/0770084828" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20 active:scale-95 transition-transform">
+                    <i data-lucide="message-circle" class="w-4 h-4" stroke-width="3"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="pt-4 text-center space-y-4 pb-4">
+            <div class="px-8 pb-4 border-t border-slate-100 pt-6">
+                <p class="text-[11px] text-slate-400 uppercase tracking-[0.3em] font-black mb-3">Our Promise</p>
+                <p class="text-xs leading-relaxed text-slate-500 italic font-medium px-4">
+                    "Securing your future with trust and integrity through personalized life insurance solutions."
+                </p>
+            </div>
+            <div class="flex justify-center items-center gap-3 opacity-20 select-none">
+                <div class="w-1 h-1 rounded-full bg-slate-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-hnb-gold"></div>
+                <div class="w-1 h-1 rounded-full bg-slate-400"></div>
+            </div>
+            <p id="copyright" class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.25em]">
+                © <span id="current-year"></span> HNB Life PLC • Life Planner
+            </p>
+        </footer>
+    </main>
+    
+    <!-- Background Accent -->
+    <div class="fixed top-[-100px] right-[-100px] w-80 h-80 bg-hnb-blue rounded-full blur-[120px] opacity-10 z-[-1]"></div>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Constants
+        const TARGET_WHATSAPP = "+94770084828";
+        
+        // Element References
+        const form = document.getElementById('lead-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        const successAlert = document.getElementById('success-alert');
+        const currentYearSpan = document.getElementById('current-year');
+        
+        // Form Fields
+        const fields = {
+            fullName: document.getElementById('fullName'),
+            email: document.getElementById('email'),
+            nic: document.getElementById('nic'),
+            mobile: document.getElementById('mobile'),
+            year: document.getElementById('dob-year'),
+            month: document.getElementById('dob-month'),
+            day: document.getElementById('dob-day'),
+            address: document.getElementById('address'),
+            requirement: document.getElementById('requirement')
+        };
+
+        // Populate Years
+        const currentYear = new Date().getFullYear();
+        currentYearSpan.textContent = currentYear;
+        for (let i = 0; i < 100; i++) {
+            const year = currentYear - i;
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            fields.year.appendChild(option);
+        }
+
+        // Populate Days
+        for (let i = 1; i <= 31; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            fields.day.appendChild(option);
+        }
+
+        // Validation Helpers
+        const validateEmail = (email) => {
+            if (!email) return { isValid: true };
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return { isValid: re.test(email), error: "Enter a valid email address" };
+        };
+
+        const validateNIC = (nic) => {
+            if (!nic) return { isValid: false, error: "NIC is required" };
+            const cleanNIC = nic.trim().toUpperCase();
+            const format1 = /^[0-9]{9}[VX]$/; // Old format
+            const format2 = /^[0-9]{12}$/; // New format
+            if (format1.test(cleanNIC) || format2.test(cleanNIC)) return { isValid: true };
+            return { isValid: false, error: "Invalid NIC format (Old or New required)" };
+        };
+
+        const validateMobile = (mobile) => {
+            if (!mobile) return { isValid: false, error: "Mobile number is required" };
+            const cleanMobile = mobile.replace(/\s/g, '');
+            const re = /^7[0-9]{8}$/;
+            if (re.test(cleanMobile)) return { isValid: true };
+            return { isValid: false, error: "Invalid mobile number (e.g. 771234567)" };
+        };
+
+        // Draft Persistence
+        const loadDraft = () => {
+            const saved = localStorage.getItem('lead_form_draft');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.keys(data).forEach(key => {
+                        if (fields[key]) fields[key].value = data[key];
+                    });
+                    if (data.nic && validateNIC(data.nic).isValid) {
+                        document.getElementById('nic-success').classList.remove('hidden');
+                    }
+                } catch (e) {
+                    console.error("Draft load failed", e);
+                }
+            }
+        };
+
+        const saveDraft = () => {
+            const data = {};
+            Object.keys(fields).forEach(key => {
+                data[key] = fields[key].value;
+            });
+            localStorage.setItem('lead_form_draft', JSON.stringify(data));
+        };
+
+        // Event Listeners for Draft
+        Object.values(fields).forEach(field => {
+            field.addEventListener('input', () => {
+                saveDraft();
+                // Clear errors on input
+                const errorEl = document.getElementById(`${field.id.split('-').shift()}-error`);
+                if (errorEl) errorEl.classList.add('hidden');
+                
+                // Specific NIC behavior
+                if (field.id === 'nic') {
+                    const successEl = document.getElementById('nic-success');
+                    if (validateNIC(field.value).isValid) successEl.classList.remove('hidden');
+                    else successEl.classList.add('hidden');
+                }
+            });
+            if (field.tagName === 'SELECT') {
+                field.addEventListener('change', saveDraft);
+            }
+        });
+
+        // Form Submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Collect Data
+            const data = {};
+            Object.keys(fields).forEach(key => data[key] = fields[key].value);
+            
+            // Clean Data
+            data.nic = data.nic.trim().toUpperCase();
+            data.mobile = data.mobile.replace(/\s/g, '');
+            data.dob = (data.year && data.month && data.day) ? `${data.year}-${data.month}-${data.day}` : '';
+
+            // Validation
+            let firstError = null;
+            const showError = (id, msg) => {
+                const el = document.getElementById(`${id}-error`);
+                el.querySelector('.error-msg').textContent = msg;
+                el.classList.remove('hidden');
+                if (!firstError) firstError = fields[id] || document.getElementById(`dob-year`);
+            };
+
+            // Clear all errors
+            document.querySelectorAll('[id$="-error"]').forEach(el => el.classList.add('hidden'));
+
+            if (!data.fullName.trim()) showError('fullName', "Full name is required");
+            if (data.email) {
+                const emailCheck = validateEmail(data.email);
+                if (!emailCheck.isValid) showError('email', emailCheck.error);
+            }
+            const nicCheck = validateNIC(data.nic);
+            if (!nicCheck.isValid) showError('nic', nicCheck.error);
+            if (!data.dob) showError('dob', "Date of birth is required");
+            const mobileCheck = validateMobile(data.mobile);
+            if (!mobileCheck.isValid) showError('mobile', mobileCheck.error);
+
+            if (firstError) {
+                firstError.focus();
+                return;
+            }
+
+            // Start Submission
+            submitBtn.disabled = true;
+            btnText.textContent = "SECURELY CONNECTING...";
+            btnIcon.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 text-white animate-spin"></i>`;
+            lucide.createIcons();
+
+            // Format Message
+            const message = `*NEW LIFE PLAN LEAD*\n\n` +
+                `*Full Name:* ${data.fullName}\n` +
+                `*Mobile:* +94 ${data.mobile}\n` +
+                `*NIC:* ${data.nic}\n` +
+                `*DOB:* ${data.dob}\n` +
+                (data.email ? `*Email:* ${data.email}\n` : '') +
+                (data.address ? `*Address:* ${data.address}\n` : '') +
+                `\n*Inquiry/Goal:* \n${data.requirement || 'Not specified'}\n\n` +
+                `_Sent via HNB Life Planner Capture_`;
+
+            // WhatsApp Trigger
+            const whatsappUrl = `https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(message)}`;
+            
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                
+                // Reset UI
+                submitBtn.disabled = false;
+                btnText.textContent = "SEND VIA WHATSAPP";
+                btnIcon.innerHTML = `<i data-lucide="message-circle" class="w-3.5 h-3.5 text-white" stroke-width="3"></i>`;
+                lucide.createIcons();
+                
+                successAlert.classList.remove('hidden');
+                localStorage.removeItem('lead_form_draft');
+                
+                setTimeout(() => {
+                    successAlert.classList.add('hidden');
+                }, 5000);
+            }, 800);
+        });
+
+        // Initialize
+        loadDraft();
+    </script>
+</body>
+</html>

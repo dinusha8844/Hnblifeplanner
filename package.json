@@ -1,0 +1,19 @@
+{
+  "name": "hnb-life-planner",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "homepage": "https://dinusha8844.github.io/Hnblifeplanner/",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "vite": "^6.2.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
